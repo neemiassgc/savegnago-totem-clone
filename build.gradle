@@ -27,4 +27,3 @@ test {
 }
 
 task stage(dependsOn: ['bootJar'])
-build.mustRunAfter clean

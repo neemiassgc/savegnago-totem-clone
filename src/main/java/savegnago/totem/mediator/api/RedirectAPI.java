@@ -42,13 +42,19 @@ public class RedirectAPI {
 		return this.defaultResponse(redirectURL);
 	}
 
-	@GetMapping(path = {"/totem/aniversario", "/totem/aniversario2021"})
+	@GetMapping(path = {"/aniversario", "/totem/aniversario"})
 	public ResponseEntity<?> birthdate() {
+		final String redirectURL = String.format("/totem/aniversario.html", this.ORIGIN_HOST);
+		return this.defaultResponse(redirectURL);
+	}
+
+	@GetMapping(path = {"/aniversario2021", "/totem/aniversario2021"})
+	public ResponseEntity<?> birthdate2021() {
 		final String redirectURL = String.format("/totem/aniversario2021/index.html", this.ORIGIN_HOST);
 		return this.defaultResponse(redirectURL);
 	}
 
-	@GetMapping(path = {"/totem/{dir:(?:img|images|css)}/{file}.{ext}"})
+	@GetMapping(path = {"/totem/**/{a:(?:img|images|css)}/*"})
 	public ResponseEntity<byte[]> getResource(@RequestHeader final HttpHeaders headers) {
 		final String uriString = ServletUriComponentsBuilder.fromCurrentRequestUri()
 			.scheme("http")

@@ -21,7 +21,7 @@ public class TotemController {
 	public ResponseEntity<String> loginCa(
 		@RequestParam MultiValueMap<String, String> params,
 		@RequestHeader HttpHeaders headers
-	) {
+	) throws Exception {
 		final MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 		body.add("cpfPortador", params.get("cpfPortador").get(0));
 

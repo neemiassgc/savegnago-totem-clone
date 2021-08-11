@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class EmployeeCard {
 
 	@Id
@@ -27,4 +26,10 @@ public class EmployeeCard {
 
 	@Column(name = "data", nullable = false, columnDefinition = "TEXT")
 	private String data = "";
+
+	public EmployeeCard (String cpf, String name, String data) {
+		this.cpf = cpf;
+		this.name = name;
+		this.data = data;
+	}
 }

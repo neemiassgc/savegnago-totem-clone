@@ -1,6 +1,9 @@
 package savegnago.totem.mediator.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import savegnago.totem.mediator.entity.EmployeeCard;
+import savegnago.totem.mediator.repository.EmployeeCardRepo;
 
 import java.net.URI;
 
@@ -16,6 +21,9 @@ import java.util.List;
 
 @Service
 public class TotemClient {
+
+	@Autowired
+	private EmployeeCardRepo employeeCardRepo;
 
 	private static final String HOST = "52.67.65.173";
 
@@ -35,7 +43,27 @@ public class TotemClient {
 
 		final RestTemplate client = new RestTemplate();
 		final HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(body, headers);
-		return client.postForEntity(uri, httpEntity, String.class);
+
+		final ResponseEntity<String> response = client.postForEntity(uri, httpEntity, String.class);
+
+		try {
+			final JsonNode root = new ObjectMapper().readTree(response.getBody());
+			if (root.get("status").get("success").asBoolean()) {
+				final JsonNode owner = root.get("result").get("values").get("portador");
+				final String cpf = owner.get("cpf").asText();
+				if (!this.employeeCardRepo.existByCpf(cpf)) {
+					final String name = owner.get("nome").asText();
+					final EmployeeCard employeeCard = new EmployeeCard(cpf, name, root.get("result").get("values").asText());
+
+					employeeCardRepo.save(employeeCard);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	public ResponseEntity<String> logout(

@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Dots {
 
 	@Id
@@ -22,9 +21,11 @@ public class Dots {
 	@Column(name = "cpf", nullable = false, columnDefinition = "CHAR(11)")
 	private String cpf;
 
-	@Column(name = "password", nullable = false, length = 20)
-	private String password;
+	@Column(name = "phone_number_suffix", nullable = true, length = 4)
+	private String phoneNumberSuffix;
 
-	@Column(name = "phone_number", nullable = true, length = 18)
-	private String phoneNumber;
+	public Dots (String cpf, String phoneNumberSuffix) {
+		this.cpf = cpf;
+		this.phoneNumberSuffix = phoneNumberSuffix;
+	}
 }

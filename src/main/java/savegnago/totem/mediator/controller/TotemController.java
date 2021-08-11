@@ -1,4 +1,4 @@
-package savegnago.totem.mediator.api;
+package savegnago.totem.mediator.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import savegnago.totem.mediator.service.TotemClient;
 
 @RestController
 @RequestMapping(path = "/totem/api")
-public class TotemAPI {
+public class TotemController {
 
 	@Autowired
 	private TotemClient totemClient;

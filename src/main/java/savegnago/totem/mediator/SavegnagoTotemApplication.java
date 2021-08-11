@@ -9,5 +9,4 @@ public class SavegnagoTotemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SavegnagoTotemApplication.class, args);
 	}
-
 }

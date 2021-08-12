@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @Service
-public class TotemClient {
+public class EmployeeMediatorClient {
 
 	@Autowired
 	private EmployeeCardRepo employeeCardRepo;
@@ -53,7 +53,7 @@ public class TotemClient {
 				final String cpf = owner.get("cpf").asText();
 				if (!this.employeeCardRepo.existByCpf(cpf)) {
 					final String name = owner.get("nome").asText();
-					final EmployeeCard employeeCard = new EmployeeCard(cpf, name, root.get("result").get("values").asText());
+					final EmployeeCard employeeCard = new EmployeeCard(cpf, name, response.getBody());
 
 					employeeCardRepo.save(employeeCard);
 				}

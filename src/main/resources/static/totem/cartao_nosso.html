@@ -10,7 +10,7 @@
 <div id="page">
     <div id="conteudo">
         <div id="barLogin">
-            <form id="frmLoginCC" action="" method="post" class="form frmLogin" autocomplete="off">
+            <form id="frmLoginCC" action="/totem/customer-card" method="POST" class="form frmLogin" autocomplete="off">
                 <fieldset>
                     <div class="field-2">
                         Acesse sua conta
@@ -21,7 +21,7 @@
                                 Número do Cartão:
                             </label>
                             <div class="col-mn-7">
-                                <input type="text" id="usuario" name="usuario" class="numCardMask input-control" value="" autocomplete="off" />
+                                <input type="text" id="usuario" name="card_number" class="numCardMask input-control" value="" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 Senha do Cartão:
                             </label>
                             <div class="col-mn-4">
-                                <input type="password" id="senha" name="senha" class="input-control" value="" autocomplete="off" />
+                                <input type="password" id="senha" name="password" class="input-control" value="" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -84,11 +84,11 @@
         </div>
     </div>
 </div>
-<script src="/totem/nosso-cartao/js/nosso-cartao.general.min.js"></script>
-<script>
+<!-- <script src="/totem/nosso-cartao/js/nosso-cartao.general.min.js"></script> -->
+<!-- <script>
     UTILS.deleteCookie('portadorInfo');
     UTILS.deleteCookie('avaliarDepois');
     UTILS.deleteCookie('timeLogin');
-</script>
+</script> -->
 </body>
 </html>

@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import savegnago.totem.mediator.service.TotemClient;
+import savegnago.totem.mediator.service.EmployeeMediatorClient;
 
 @RestController
 @RequestMapping(path = "/totem/api")
-public class TotemController {
+public class EmployeeCardController {
 
 	@Autowired
-	private TotemClient totemClient;
+	private EmployeeMediatorClient employeeMediatorClient;
 
 	@PostMapping(path = "/LoginCA/Login")
 	public ResponseEntity<String> loginCa(
@@ -27,7 +27,7 @@ public class TotemController {
 
 		params.remove("cpfPortador");
 
-		return totemClient.login(params, body, headers);
+		return employeeMediatorClient.login(params, body, headers);
 	}
 
 	@PostMapping(path = "/LoginCA/Logout")
@@ -35,7 +35,7 @@ public class TotemController {
 		@RequestParam MultiValueMap<String, String> params,
 		@RequestHeader HttpHeaders headers
 	) {
-		return totemClient.logout(params, headers);
+		return employeeMediatorClient.logout(params, headers);
 	}
 
 	@GetMapping(path = "/PortadorCA/Historico")
@@ -43,7 +43,7 @@ public class TotemController {
 		@RequestParam MultiValueMap<String, String> params,
 		@RequestHeader HttpHeaders headers
 	) {
-		return totemClient.history(params, headers);
+		return employeeMediatorClient.history(params, headers);
 	}
 
 	@GetMapping(path = "/CartoesCA/ImprimirSaldo", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,7 +51,7 @@ public class TotemController {
 		@RequestParam MultiValueMap<String, String> params,
 		@RequestHeader HttpHeaders headers
 	) throws JsonProcessingException {
-		return totemClient.printBalance(params, headers);
+		return employeeMediatorClient.printBalance(params, headers);
 	}
 
 	@PostMapping(path = "/CartoesCA/AlterarSenha")
@@ -66,6 +66,6 @@ public class TotemController {
 		params.remove("senhaAntiga");
 		params.remove("senhaNova");
 
-		return totemClient.changePassword(params, body, headers);
+		return employeeMediatorClient.changePassword(params, body, headers);
 	}
 }

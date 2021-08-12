@@ -44,8 +44,14 @@ public class RedirectController {
 
 	@GetMapping(
 		path = {"/totem/cartao-alimentacao/index", "/totem/cartao-alimentacao", "/totem/cartao-alimentacao/home"})
-	public ResponseEntity<?> foodCard() {
+	public ResponseEntity<?> employeeCard() {
 		final String redirectURL = "/totem/cartao-alimentacao/index.html";
+		return this.defaultResponse(redirectURL);
+	}
+
+	@GetMapping(path = {"/totem/cartao_nosso/index", "/totem/cartao_nosso"})
+	public ResponseEntity<?> customerCard() {
+		final String redirectURL = "/totem/cartao_nosso.html";
 		return this.defaultResponse(redirectURL);
 	}
 
@@ -65,18 +71,10 @@ public class RedirectController {
 	public ResponseEntity<byte[]> getResource(@RequestHeader final HttpHeaders headers) {
 		final String uriString = ServletUriComponentsBuilder.fromCurrentRequestUri()
 			.scheme("http")
-			.host("52.67.65.173")
+			.host(ORIGIN_HOST)
 			.port(80).build(true).toUriString();
 
 		return this.resourceClient.findResource(uriString, headers);
-	}
-
-	@PostMapping(path = "/totem/customer-card")
-	public ResponseEntity<?> customerCardRedirect(@RequestParam final MultiValueMap<String, String> params) {
-		params.forEach((key, value) -> {
-			System.out.println(key+" -> "+String.join(", ", value));
-		});
-		return defaultResponse(String.format("http://%s/totem/cartao_nosso.php", ORIGIN_HOST));
 	}
 
 	@PostMapping(path = "/totem/netpoints/{path:(?:query|password)}")
